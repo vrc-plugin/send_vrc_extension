@@ -1,0 +1,13 @@
+{
+  "manifest_version": 2,
+  "name": "SendVRC | VRChatにURLを送るやつ",
+  "version": "0.0.1",
+  "description": "Sends the URL to VRChat. send_vrc_desktop is required for one-click operation.",
+  "browser_action": {
+    "default_title" : "this page send to VRChat"
+  },
+  "background": {
+    "scripts": ["send.js"]
+  },
+  "permissions": ["activeTab", "contextMenus", "http://localhost:11400/*"]
+}

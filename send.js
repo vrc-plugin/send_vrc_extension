@@ -11,7 +11,7 @@
             mode: "cors",
             cache: "no-cache",
         }).catch((e) => {
-            console.error(e)
+            console.log(e)
         });
     }
 

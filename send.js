@@ -1,17 +1,14 @@
 (() => {
     let toVRC = (url) => {
-        let textArea = document.createElement('textarea');
-        document.body.appendChild(textArea);
-        textArea.value = url;
-        textArea.select();
-        document.execCommand('copy');
-
-        fetch("http://localhost:11400/paste", {
-            method: "GET",
+        fetch("http://localhost:11400/url", {
+            method: "PUT",
             mode: "cors",
+            credentials: 'omit',
             cache: "no-cache",
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({url: url})
         }).catch((e) => {
-            console.log(e)
+            console.log(e);
         });
     }
 

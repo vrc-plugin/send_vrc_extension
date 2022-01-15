@@ -15,7 +15,7 @@
     chrome.contextMenus.create({
         title: 'SendVRC this page',
         type: 'normal',
-        contexts: ['all'],
+        contexts: ['page'],
         onclick: (info, tab) => {
             if (!info || !info['pageUrl']) {
                 return;

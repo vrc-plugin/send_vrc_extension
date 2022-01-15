@@ -1,7 +1,7 @@
 (() => {
     let toVRC = (url) => {
         fetch("http://localhost:11400/url", {
-            method: "PUT",
+            method: "POST",
             mode: "cors",
             credentials: 'omit',
             cache: "no-cache",

@@ -1,14 +1,19 @@
 (() => {
-    let toVRC = (url) => {
-        fetch("http://localhost:11400/url", {
-            method: "POST",
-            mode: "cors",
+    const defaultMethod = 'POST';
+    let toVRC = (url, method = defaultMethod) => {
+        fetch('http://localhost:11400/url', {
+            method: method,
+            mode: 'cors',
             credentials: 'omit',
-            cache: "no-cache",
+            cache: 'no-cache',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({url: url})
         }).catch((e) => {
-            console.log(e);
+            console.warn(e);
+            // old version compatible.
+            if (method !== 'PUT') {
+                toVRC(url, 'PUT');
+            }
         });
     }
 

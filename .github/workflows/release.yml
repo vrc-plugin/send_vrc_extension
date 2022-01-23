@@ -13,9 +13,9 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Build
-        run:
-          - mkdir dist
-          - zip -jr ./dist/send_vrc.zip ./* -x'*.git*'
+        run: |
+          mkdir -p dist
+          zip -jr ./dist/send_vrc.zip ./* -x'*.git*'
 
       - name: Release
         uses: softprops/action-gh-release@v1

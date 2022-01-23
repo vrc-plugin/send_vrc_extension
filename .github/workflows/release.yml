@@ -1,0 +1,24 @@
+name: Build
+
+on:
+  push:
+    tags:
+      - "v*.*.*"
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Build
+        run: ./.build/package.sh
+
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: "dist/send_vrc.zip"
+          prerelease: ${{ contains(github.ref, '-beta') }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

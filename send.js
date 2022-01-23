@@ -8,11 +8,22 @@
             cache: 'no-cache',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({url: url})
+        }).then((res) => {
+            if (!res.ok && method !== 'PUT') {
+                toVRC(url, 'PUT');
+            }
+
+            if (!res.ok && method === 'PUT') {
+                window.alert("please start send_vrc_desktop.");
+            }
         }).catch((e) => {
-            console.warn(e);
+            console.log(e, method);
             // old version compatible.
             if (method !== 'PUT') {
                 toVRC(url, 'PUT');
+            }
+            if (method === 'PUT') {
+                window.alert("please start send_vrc_desktop.");
             }
         });
     }

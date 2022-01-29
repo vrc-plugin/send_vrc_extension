@@ -13,5 +13,5 @@
   "background": {
     "scripts": ["send.js"]
   },
-  "permissions": ["activeTab", "contextMenus", "http://localhost:11400/*"]
+  "permissions": ["activeTab", "contextMenus", "clipboardRead", "http://localhost:11400/*"]
 }

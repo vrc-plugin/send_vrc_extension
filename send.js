@@ -14,7 +14,7 @@
             }
 
             if (!res.ok && method === 'PUT') {
-                window.alert("please start send_vrc_desktop.");
+                window.alert('please start send_vrc_desktop.');
             }
         }).catch((e) => {
             console.log(e, method);
@@ -23,9 +23,19 @@
                 toVRC(url, 'PUT');
             }
             if (method === 'PUT') {
-                window.alert("please start send_vrc_desktop.");
+                window.alert('please start send_vrc_desktop.');
             }
         });
+    }
+    let getClipboard = () =>  {
+        const pasteTarget = document.createElement('div');
+        pasteTarget.contentEditable = 'true';
+        const actElem = document.activeElement.appendChild(pasteTarget).parentNode;
+        pasteTarget.focus();
+        document.execCommand('Paste', null, null);
+        const paste = pasteTarget.innerText;
+        actElem.removeChild(pasteTarget);
+        return paste;
     }
 
     chrome.contextMenus.create({
@@ -38,6 +48,20 @@
             }
             const pageURL = info['pageUrl'];
             toVRC(pageURL);
+        }
+    })
+
+    chrome.contextMenus.create({
+        title: 'SendVRC with clipboard',
+        type: 'normal',
+        contexts: ['browser_action'],
+        onclick: () => {
+            let input = document.createElement('input');
+            input.type = 'text';
+            document.body.appendChild(input);
+            input.focus();
+            document.execCommand('paste');
+            console.log(getClipboard());
         }
     })
 

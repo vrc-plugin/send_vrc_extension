@@ -56,12 +56,7 @@
         type: 'normal',
         contexts: ['browser_action'],
         onclick: () => {
-            let input = document.createElement('input');
-            input.type = 'text';
-            document.body.appendChild(input);
-            input.focus();
-            document.execCommand('paste');
-            console.log(getClipboard());
+            toVRC(getClipboard());
         }
     })
 

@@ -1,6 +1,7 @@
 (() => {
     const defaultMethod = 'POST';
     let toVRC = (url, method = defaultMethod) => {
+        const url = urlReplace(reciveUrl)
         fetch('http://localhost:11400/url', {
             method: method,
             mode: 'cors',
@@ -36,6 +37,10 @@
         const paste = pasteTarget.innerText;
         actElem.removeChild(pasteTarget);
         return paste;
+    }
+    //String replacement process for URLs
+    let urlReplace = (url) =>  {
+        return url.replace(/&list.*/, '');
     }
 
     chrome.contextMenus.create({

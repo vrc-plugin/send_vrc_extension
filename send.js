@@ -1,6 +1,6 @@
 (() => {
     const defaultMethod = 'POST';
-    let toVRC = (url, method = defaultMethod) => {
+    let toVRC = (reciveUrl, method = defaultMethod) => {
         const url = urlReplace(reciveUrl)
         fetch('http://localhost:11400/url', {
             method: method,

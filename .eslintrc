@@ -1,13 +1,18 @@
 {
   "env": {
-    "es2021": true,
     "browser": true,
     "webextensions": true,
     "node": false
   },
-  "extends": ["eslint:recommended", "prettier"],
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    "prettier"
+  ],
+  "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "ecmaVersion": 13,
     "sourceType": "module"
-  }
+  },
+  "plugins": ["@typescript-eslint"]
 }

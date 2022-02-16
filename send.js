@@ -38,12 +38,22 @@
         actElem.removeChild(pasteTarget);
         return paste;
     }
-    //String replacement process for URLs
+
+
     let urlReplace = (url) =>  {
         const u = new URL(url);
-        u.searchParams.delete('list');
+        switch (u.hostname) {
+            case 'www.youtube.com':
+            case 'm.youtube.com':
+                const v = u.searchParams.get("v");
+                const allowURL = new URL("https://www.youtube.com/watch");
+                allowURL.searchParams.append("v", v)
+                return allowURL.toString();
+        }
+
         return u.toString();
     }
+
 
     chrome.contextMenus.create({
         title: 'SendVRC this page',

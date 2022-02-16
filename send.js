@@ -43,6 +43,7 @@
     let urlReplace = (url) =>  {
         const u = new URL(url);
         switch (u.hostname) {
+            case 'youtube.com':
             case 'www.youtube.com':
             case 'm.youtube.com':
                 const v = u.searchParams.get("v");

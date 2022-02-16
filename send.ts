@@ -1,6 +1,6 @@
 (() => {
   const defaultMethod = "POST";
-  let toVRC = (receiveUrl, method = defaultMethod) => {
+  const toVRC = (receiveUrl: string, method: string = defaultMethod) => {
     const url = urlReplace(receiveUrl);
     fetch("http://localhost:11400/url", {
       method: method,
@@ -30,18 +30,21 @@
         }
       });
   };
-  let getClipboard = () => {
+  const getClipboard = () => {
     const pasteTarget = document.createElement("div");
     pasteTarget.contentEditable = "true";
-    const actElem = document.activeElement.appendChild(pasteTarget).parentNode;
+    if (!document.activeElement) {
+      throw new Error("`document.activeElement` is null");
+    }
+    document.activeElement.appendChild(pasteTarget);
     pasteTarget.focus();
-    document.execCommand("Paste", null, null);
+    document.execCommand("Paste");
     const paste = pasteTarget.innerText;
-    actElem.removeChild(pasteTarget);
+    document.activeElement.removeChild(pasteTarget);
     return paste;
   };
 
-  let urlReplace = (url) => {
+  const urlReplace = (url: string) => {
     const u = new URL(url);
     switch (u.hostname) {
       case "youtube.com":
@@ -49,7 +52,9 @@
       case "m.youtube.com": {
         const v = u.searchParams.get("v");
         const allowURL = new URL("https://www.youtube.com/watch");
-        allowURL.searchParams.append("v", v);
+        if (v) {
+          allowURL.searchParams.append("v", v);
+        }
         return allowURL.toString();
       }
       default:

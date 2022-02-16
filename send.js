@@ -40,7 +40,9 @@
     }
     //String replacement process for URLs
     let urlReplace = (url) =>  {
-        return url.replace(/&list.*/, '');
+        const u = new URL(url);
+        u.searchParams.delete('list');
+        return u.toString();
     }
 
     chrome.contextMenus.create({

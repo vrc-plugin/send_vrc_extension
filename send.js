@@ -1,7 +1,7 @@
 (() => {
     const defaultMethod = 'POST';
-    let toVRC = (reciveUrl, method = defaultMethod) => {
-        const url = urlReplace(reciveUrl)
+    let toVRC = (receiveUrl, method = defaultMethod) => {
+        const url = urlReplace(receiveUrl)
         fetch('http://localhost:11400/url', {
             method: method,
             mode: 'cors',

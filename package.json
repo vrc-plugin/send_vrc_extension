@@ -1,0 +1,26 @@
+{
+  "name": "send_vrc",
+  "version": "0.1.0",
+  "description": "One click URL to VRChat",
+  "main": "send.js",
+  "scripts": {
+    "lint": "eslint .",
+    "fix": "eslint --fix .",
+    "format": "prettier --write ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bootjp/send_vrc.git"
+  },
+  "author": "bootjp / Yoshiaki Ueda <contact@bootjp.me>",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/bootjp/send_vrc/issues"
+  },
+  "homepage": "https://github.com/bootjp/send_vrc",
+  "devDependencies": {
+    "eslint": "8.9.0",
+    "eslint-config-prettier": "8.3.0",
+    "prettier": "2.5.1"
+  }
+}

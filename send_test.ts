@@ -1,4 +1,4 @@
-let urlReplace = (url) => {
+const urlReplace = (url: string) => {
   const u = new URL(url);
   switch (u.hostname) {
     case "youtube.com":
@@ -6,7 +6,9 @@ let urlReplace = (url) => {
     case "m.youtube.com": {
       const v = u.searchParams.get("v");
       const allowURL = new URL("https://www.youtube.com/watch");
-      allowURL.searchParams.append("v", v);
+      if (v) {
+        allowURL.searchParams.append("v", v);
+      }
       return allowURL.toString();
     }
   }

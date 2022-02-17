@@ -11,16 +11,24 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-
+      
       - name: Build
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16.14.0
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+
+      - name: Zip package
         run: |
-          mkdir -p dist
-          zip -jr ./dist/send_vrc.zip ./* -x'*.git*'
+          mkdir -p /release
+          zip -jr /release/send_vrc.zip ./dist/*
 
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
-          files: "dist/send_vrc.zip"
+          files: "/release/send_vrc.zip"
           prerelease: ${{ contains(github.ref, '-beta') }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

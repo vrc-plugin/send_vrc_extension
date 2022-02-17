@@ -4,7 +4,7 @@
   "description": "One click URL to VRChat",
   "main": "send.js",
   "scripts": {
-    "build": "tsc",
+    "build": "tsc && cp ./static/* ./dist",
     "lint": "eslint .",
     "fix": "eslint --fix .",
     "format": "prettier --write .",

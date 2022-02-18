@@ -22,8 +22,8 @@ jobs:
 
       - name: Zip package
         run: |
-          mkdir -p /release
-          zip -jr /release/send_vrc.zip ./dist/*
+          mkdir -p release
+          zip -jr release/send_vrc.zip ./dist/*
 
       - name: Release
         uses: softprops/action-gh-release@v1

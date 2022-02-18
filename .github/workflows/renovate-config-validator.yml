@@ -20,7 +20,7 @@ jobs:
           cache: npm
 
       - name: Install Renovate CLI
-      - run: npm install -g renovate
+        run: npm install -g renovate
 
       - name: Validate renovate.json
         run: renovate-config-validator

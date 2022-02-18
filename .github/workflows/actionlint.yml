@@ -1,0 +1,17 @@
+name: Check GitHub Actions workflow files
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  actionlint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v2
+
+      - name: Run actionlint
+        uses: reviewdog/action-actionlint@v1

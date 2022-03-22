@@ -1,6 +1,6 @@
 {
   "name": "send_vrc",
-  "version": "0.1.0",
+  "version": "1.0.1",
   "description": "One click URL to VRChat",
   "main": "send.js",
   "scripts": {

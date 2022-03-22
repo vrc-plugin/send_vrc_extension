@@ -21,12 +21,12 @@
   },
   "homepage": "https://github.com/bootjp/send_vrc",
   "devDependencies": {
-    "@types/chrome": "0.0.178",
-    "@typescript-eslint/eslint-plugin": "5.12.0",
-    "@typescript-eslint/parser": "5.12.0",
-    "eslint": "8.9.0",
-    "eslint-config-prettier": "8.3.0",
-    "prettier": "2.5.1",
-    "typescript": "4.5.5"
+    "@types/chrome": "0.0.180",
+    "@typescript-eslint/eslint-plugin": "5.16.0",
+    "@typescript-eslint/parser": "5.16.0",
+    "eslint": "8.11.0",
+    "eslint-config-prettier": "8.5.0",
+    "prettier": "2.6.0",
+    "typescript": "4.6.2"
   }
 }

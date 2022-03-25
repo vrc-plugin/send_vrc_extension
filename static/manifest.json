@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "SendVRC | VRChatにURLを送るやつ",
-  "version": "0.1.0",
+  "version": "1.0.2",
   "description": "Sends the URL to VRChat. send_vrc_desktop is required for one-click operation.",
   "browser_action": {
     "default_icon": "icon.png",

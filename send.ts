@@ -36,12 +36,13 @@
     if (!document.activeElement) {
       throw new Error("`document.activeElement` is null");
     }
-    const activeElement = document.activeElement.appendChild(pasteTarget).parentNode;
+    const activeElement =
+      document.activeElement.appendChild(pasteTarget).parentNode;
     pasteTarget.focus();
     document.execCommand("Paste");
     const paste = pasteTarget.innerText;
     if (!activeElement) {
-      throw new Error("`activeElement` is null")
+      throw new Error("`activeElement` is null");
     }
     activeElement.removeChild(pasteTarget);
     return paste;

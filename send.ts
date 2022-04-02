@@ -1,7 +1,6 @@
 (() => {
   const defaultMethod = "POST";
-  const toVRC = (receiveUrl: string, method: string = defaultMethod) => {
-    const url = urlReplace(receiveUrl);
+  const toVRC = (url: string, method: string = defaultMethod) => {
     fetch("http://localhost:11400/url", {
       method: method,
       mode: "cors",
@@ -48,7 +47,7 @@
     return paste;
   };
 
-  const urlReplace = (url: string) => {
+  const canonicalizeUrl = (url: string) => {
     const u = new URL(url);
     switch (u.hostname) {
       case "youtube.com":
@@ -92,6 +91,7 @@
     if (!e || !e["url"]) {
       return;
     }
-    toVRC(e["url"]);
+    const url = canonicalizeUrl(e["url"]);
+    toVRC(url);
   });
 })();

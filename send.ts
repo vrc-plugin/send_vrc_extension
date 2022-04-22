@@ -1,4 +1,9 @@
 (() => {
+  const CONTEXT_MENUS = {
+    SEND_THIS_PAGE: "send_this_page",
+    SEND_WITH_CLIPBOARD: "send_with_clipboard",
+  };
+
   const defaultMethod = "POST";
   const toVRC = (url: string, method: string = defaultMethod) => {
     fetch("http://localhost:11400/url", {
@@ -29,22 +34,13 @@
         }
       });
   };
-  const getClipboard = () => {
-    const pasteTarget = document.createElement("div");
-    pasteTarget.contentEditable = "true";
-    if (!document.activeElement) {
-      throw new Error("`document.activeElement` is null");
-    }
-    const activeElement =
-      document.activeElement.appendChild(pasteTarget).parentNode;
-    pasteTarget.focus();
-    document.execCommand("Paste");
-    const paste = pasteTarget.innerText;
-    if (!activeElement) {
-      throw new Error("`activeElement` is null");
-    }
-    activeElement.removeChild(pasteTarget);
-    return paste;
+
+  const getClipboard = async (tabId: number) => {
+    const result = await chrome.scripting.executeScript({
+      target: { tabId: tabId },
+      func: () => navigator.clipboard.readText(),
+    });
+    return result[0].result;
   };
 
   const canonicalizeUrl = (url: string) => {
@@ -66,28 +62,41 @@
   };
 
   chrome.contextMenus.create({
+    id: CONTEXT_MENUS.SEND_THIS_PAGE,
     title: "SendVRC this page",
     type: "normal",
     contexts: ["page"],
-    onclick: (info) => {
-      if (!info || !info["pageUrl"]) {
-        return;
-      }
-      const pageURL = info["pageUrl"];
-      toVRC(pageURL);
-    },
   });
 
   chrome.contextMenus.create({
+    id: CONTEXT_MENUS.SEND_WITH_CLIPBOARD,
     title: "SendVRC with clipboard",
     type: "normal",
-    contexts: ["browser_action"],
-    onclick: () => {
-      toVRC(getClipboard());
-    },
+    contexts: ["action"],
   });
 
-  chrome.browserAction.onClicked.addListener((e) => {
+  chrome.contextMenus.onClicked.addListener(async (info, tab) => {
+    switch (info.menuItemId) {
+      case CONTEXT_MENUS.SEND_THIS_PAGE: {
+        if (!info || !info["pageUrl"]) {
+          return;
+        }
+        const pageURL = info["pageUrl"];
+        toVRC(pageURL);
+        break;
+      }
+      case CONTEXT_MENUS.SEND_WITH_CLIPBOARD: {
+        if (!tab || tab.id === undefined) {
+          return;
+        }
+        const clipboardText = await getClipboard(tab.id);
+        toVRC(clipboardText);
+        break;
+      }
+    }
+  });
+
+  chrome.action.onClicked.addListener((e) => {
     if (!e || !e["url"]) {
       return;
     }

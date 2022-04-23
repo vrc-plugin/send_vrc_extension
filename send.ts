@@ -20,7 +20,12 @@
         }
 
         if (!res.ok && method === "PUT") {
-          window.alert("please start send_vrc_desktop.");
+          chrome.notifications.create({
+            type: "basic",
+            iconUrl: "./icon.png",
+            title: "send_vrc",
+            message: "please start send_vrc_desktop.",
+          });
         }
       })
       .catch((e) => {
@@ -30,7 +35,12 @@
           toVRC(url, "PUT");
         }
         if (method === "PUT") {
-          window.alert("please start send_vrc_desktop.");
+          chrome.notifications.create({
+            type: "basic",
+            iconUrl: "./icon.png",
+            title: "send_vrc",
+            message: "please start send_vrc_desktop.",
+          });
         }
       });
   };

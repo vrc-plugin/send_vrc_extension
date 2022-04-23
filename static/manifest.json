@@ -13,6 +13,12 @@
   "background": {
     "service_worker": "send.js"
   },
-  "permissions": ["activeTab", "contextMenus", "clipboardRead", "scripting"],
+  "permissions": [
+    "activeTab",
+    "contextMenus",
+    "clipboardRead",
+    "notifications",
+    "scripting"
+  ],
   "host_permissions": ["http://localhost:11400/*"]
 }

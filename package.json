@@ -21,7 +21,7 @@
   },
   "homepage": "https://github.com/bootjp/send_vrc",
   "devDependencies": {
-    "@types/chrome": "0.0.181",
+    "@types/chrome": "0.0.183",
     "@typescript-eslint/eslint-plugin": "5.22.0",
     "@typescript-eslint/parser": "5.22.0",
     "eslint": "8.14.0",

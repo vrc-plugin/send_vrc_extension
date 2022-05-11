@@ -12,14 +12,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/bootjp/send_vrc.git"
+    "url": "git+https://github.com/vrc-plugin/send_vrc.git"
   },
   "author": "bootjp / Yoshiaki Ueda <contact@bootjp.me>",
   "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/bootjp/send_vrc/issues"
+    "url": "https://github.com/vrc-plugin/send_vrc/issues"
   },
-  "homepage": "https://github.com/bootjp/send_vrc",
+  "homepage": "https://github.com/vrc-plugin/send_vrc",
   "devDependencies": {
     "@types/chrome": "0.0.184",
     "@typescript-eslint/eslint-plugin": "5.23.0",

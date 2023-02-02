@@ -11,7 +11,7 @@
     "128": "icon.png"
   },
   "background": {
-    "service_worker": "send.js"
+    "service_worker": "background.js"
   },
   "permissions": [
     "activeTab",

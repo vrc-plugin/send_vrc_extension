@@ -2,7 +2,7 @@
   "env": {
     "browser": true,
     "webextensions": true,
-    "node": false
+    "node": true
   },
   "extends": [
     "eslint:recommended",

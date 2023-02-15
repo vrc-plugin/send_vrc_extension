@@ -3,45 +3,33 @@ const CONTEXT_MENUS = {
   SEND_WITH_CLIPBOARD: "send_with_clipboard",
 };
 
-const defaultMethod = "POST";
-const toVRC = (url: string, method: string = defaultMethod) => {
-  fetch("http://localhost:11400/url", {
-    method: method,
-    mode: "cors",
-    credentials: "omit",
-    cache: "no-cache",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ url: url }),
-  })
-    .then((res) => {
-      if (!res.ok && method !== "PUT") {
-        toVRC(url, "PUT");
-      }
+const ERROR_NOTIFICATION_OPTIONS: chrome.notifications.NotificationOptions<true> =
+  {
+    type: "basic",
+    iconUrl: "./icon.png",
+    title: "send_vrc",
+    message: "please start send_vrc_desktop.",
+  } as const;
 
-      if (!res.ok && method === "PUT") {
-        chrome.notifications.create({
-          type: "basic",
-          iconUrl: "./icon.png",
-          title: "send_vrc",
-          message: "please start send_vrc_desktop.",
-        });
-      }
-    })
-    .catch((e) => {
-      console.log(e, method);
-      // old version compatible.
-      if (method !== "PUT") {
-        toVRC(url, "PUT");
-      }
-      if (method === "PUT") {
-        chrome.notifications.create({
-          type: "basic",
-          iconUrl: "./icon.png",
-          title: "send_vrc",
-          message: "please start send_vrc_desktop.",
-        });
-      }
+const sendUrlToVRC = async (url: string) => {
+  try {
+    const res = await fetch("http://localhost:11400/url", {
+      method: "POST",
+      mode: "cors",
+      credentials: "omit",
+      cache: "no-cache",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ url: url }),
     });
+
+    if (!res.ok) {
+      console.log(res.statusText);
+      chrome.notifications.create(ERROR_NOTIFICATION_OPTIONS);
+    }
+  } catch (e) {
+    console.log(e);
+    chrome.notifications.create(ERROR_NOTIFICATION_OPTIONS);
+  }
 };
 
 const getClipboard = async (tabId: number) => {
@@ -87,28 +75,31 @@ chrome.contextMenus.create({
 chrome.contextMenus.onClicked.addListener(async (info, tab) => {
   switch (info.menuItemId) {
     case CONTEXT_MENUS.SEND_THIS_PAGE: {
-      if (!info || !info["pageUrl"]) {
+      if (!info.pageUrl) {
         return;
       }
-      const pageURL = info["pageUrl"];
-      toVRC(pageURL);
+
+      const url = canonicalizeUrl(info.pageUrl);
+      sendUrlToVRC(url);
       break;
     }
     case CONTEXT_MENUS.SEND_WITH_CLIPBOARD: {
-      if (!tab || tab.id === undefined) {
+      if (tab?.id === undefined) {
         return;
       }
+
       const clipboardText = await getClipboard(tab.id);
-      toVRC(clipboardText);
+      sendUrlToVRC(clipboardText);
       break;
     }
   }
 });
 
 chrome.action.onClicked.addListener((e) => {
-  if (!e || !e["url"]) {
+  if (!e.url) {
     return;
   }
-  const url = canonicalizeUrl(e["url"]);
-  toVRC(url);
+
+  const url = canonicalizeUrl(e.url);
+  sendUrlToVRC(url);
 });

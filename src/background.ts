@@ -1,6 +1,9 @@
+import { getUseJinnaiSystem } from "./config";
+
 const CONTEXT_MENUS = {
   SEND_THIS_PAGE: "send_this_page",
   SEND_WITH_CLIPBOARD: "send_with_clipboard",
+  OPEN_OPTIONS: "open_options",
 };
 
 const ERROR_NOTIFICATION_OPTIONS: chrome.notifications.NotificationOptions<true> =
@@ -12,6 +15,15 @@ const ERROR_NOTIFICATION_OPTIONS: chrome.notifications.NotificationOptions<true>
   } as const;
 
 const sendUrlToVRC = async (url: string) => {
+  let body: { url: string };
+  if (await getUseJinnaiSystem()) {
+    const jinnaiSystemUrl = new URL("https://nextnex.com/");
+    jinnaiSystemUrl.searchParams.set("url", url);
+    body = { url: jinnaiSystemUrl.toString() };
+  } else {
+    body = { url };
+  }
+
   try {
     const res = await fetch("http://localhost:11400/url", {
       method: "POST",
@@ -19,7 +31,7 @@ const sendUrlToVRC = async (url: string) => {
       credentials: "omit",
       cache: "no-cache",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ url: url }),
+      body: JSON.stringify(body),
     });
 
     if (!res.ok) {
@@ -72,6 +84,13 @@ chrome.contextMenus.create({
   contexts: ["action"],
 });
 
+chrome.contextMenus.create({
+  id: CONTEXT_MENUS.OPEN_OPTIONS,
+  title: "Options",
+  type: "normal",
+  contexts: ["action"],
+});
+
 chrome.contextMenus.onClicked.addListener(async (info, tab) => {
   switch (info.menuItemId) {
     case CONTEXT_MENUS.SEND_THIS_PAGE: {
@@ -90,6 +109,10 @@ chrome.contextMenus.onClicked.addListener(async (info, tab) => {
 
       const clipboardText = await getClipboard(tab.id);
       sendUrlToVRC(clipboardText);
+      break;
+    }
+    case CONTEXT_MENUS.OPEN_OPTIONS: {
+      chrome.tabs.create({ url: "options.html" });
       break;
     }
   }

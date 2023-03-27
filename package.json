@@ -22,7 +22,7 @@
   },
   "homepage": "https://github.com/vrc-plugin/send_vrc",
   "devDependencies": {
-    "@types/chrome": "0.0.225",
+    "@types/chrome": "0.0.226",
     "@typescript-eslint/eslint-plugin": "5.56.0",
     "@typescript-eslint/parser": "5.56.0",
     "copy-webpack-plugin": "11.0.0",

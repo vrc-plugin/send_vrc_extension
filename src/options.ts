@@ -1,7 +1,7 @@
 import { getUseJinnaiSystem, setUseJinnaiSystem } from "./config";
 
 const useJinnaiSystemInput = document.getElementById(
-  "useJinnaiSystem"
+  "useJinnaiSystem",
 ) as HTMLInputElement;
 
 useJinnaiSystemInput.addEventListener("change", () => {

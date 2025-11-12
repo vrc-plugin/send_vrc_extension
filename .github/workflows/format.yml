@@ -13,7 +13,7 @@ jobs:
       - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5
       - uses: actions/setup-node@v6
         with:
-          node-version: 24.11.0
+          node-version: 24.11.1
           cache: npm
       - run: npm ci
       - run: npm run format:check

@@ -23,8 +23,8 @@
   "homepage": "https://github.com/vrc-plugin/send_vrc",
   "devDependencies": {
     "@types/chrome": "0.1.39",
-    "@typescript-eslint/eslint-plugin": "8.58.0",
-    "@typescript-eslint/parser": "8.58.0",
+    "@typescript-eslint/eslint-plugin": "8.58.1",
+    "@typescript-eslint/parser": "8.58.1",
     "copy-webpack-plugin": "14.0.0",
     "eslint": "10.2.0",
     "eslint-config-prettier": "10.1.8",

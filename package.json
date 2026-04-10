@@ -28,7 +28,7 @@
     "copy-webpack-plugin": "14.0.0",
     "eslint": "10.2.0",
     "eslint-config-prettier": "10.1.8",
-    "prettier": "3.8.1",
+    "prettier": "3.8.2",
     "ts-loader": "9.5.7",
     "typescript": "6.0.2",
     "webpack": "5.106.0",

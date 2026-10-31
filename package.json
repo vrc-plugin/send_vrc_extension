@@ -26,7 +26,7 @@
     "@typescript-eslint/eslint-plugin": "8.72.1",
     "@typescript-eslint/parser": "8.72.1",
     "copy-webpack-plugin": "14.0.0",
-    "eslint": "10.13.0",
+    "eslint": "10.14.0",
     "eslint-config-prettier": "10.1.8",
     "prettier": "3.9.10",
     "ts-loader": "9.6.2",
